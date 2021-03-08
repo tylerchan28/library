@@ -1,9 +1,11 @@
 let myLibrary = [];
-function Book(title, author, pages, read) {
+class Book {
+    constructor(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    }
 }
 
 
@@ -13,7 +15,7 @@ function addToLibraryArray(newBook) {
     return true;
 }
 
-function removeFromArray(bookName) {
+function removeFromLibraryArray(bookName) {
     myLibrary.splice(myLibrary.indexOf(bookName), 1);
 }
 
@@ -32,6 +34,7 @@ function displayBook(book) {
     const titleDiv = document.createElement(`h2`);
     const authorDiv = document.createElement(`h3`);
     const pagesDiv = document.createElement(`h3`);
+    const buttonContainerDiv = document.createElement(`div`);
     const readBtnDiv = document.createElement(`button`);
     const removeBtnDiv = document.createElement('button');
     
@@ -40,8 +43,10 @@ function displayBook(book) {
     bookDiv.classList.add(`book-card-text`);
     removeBtnDiv.classList.add(`remove-button`);
     readBtnDiv.classList.add(`read-button`);
-    // removeBtnDiv.classList.add(`book-buttons-container`);
-    // readBtnDiv.classList.add(`book-buttons-container`);
+    
+    buttonContainerDiv.appendChild(removeBtnDiv);
+    buttonContainerDiv.appendChild(readBtnDiv);
+    buttonContainerDiv.classList.add(`button-container-div`);
 
     titleDiv.textContent = book.title;
     authorDiv.textContent = book.author;
@@ -84,7 +89,7 @@ function displayBook(book) {
     libraryContainer.appendChild(bookDiv);
 
     removeBtnDiv.addEventListener(`click`, () => {
-        removeFromArray(book);
+        removeFromLibraryArray(book);
         updateLibrary();
     })
 
@@ -133,14 +138,14 @@ function bookInput() {
 const newBookButton = document.querySelector(`.new-book`);
 newBookButton.addEventListener(`click`, openForm);
 const popup = document.querySelector(`.form-popup`);
+const bodyDiv = document.querySelector(`body`);
 
 function openForm() {
     popup.style.display = "block";
-    newBookButton.style.display = "none";
-    document.style.backgroundColor = "#FF0000"
+    newBookButton.style.opacity = "0";
 }
 
 function closeForm() {
     popup.style.display = "none";
-    newBookButton.style.display = "block";
+    newBookButton.style.opacity = "1";
 }
