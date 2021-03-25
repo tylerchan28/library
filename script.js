@@ -10,11 +10,13 @@ class Book {
 
 function addToLibraryArray(newBook) {
     myLibrary.push(newBook);
+    storeLocal();
     return true;
 }
 
 function removeFromLibraryArray(bookName) {
     myLibrary.splice(myLibrary.indexOf(bookName), 1);
+    storeLocal();
 }
 
 function getBook(bookTitle) {
