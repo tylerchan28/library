@@ -56,25 +56,31 @@ function displayBook(book) {
  
     if (book.read) {
         readBtnDiv.style.backgroundColor = `#10c719`;
+        storeLocal();
     } else {
         readBtnDiv.textContent = "Not Read"
         readBtnDiv.style.backgroundColor = `#ff3232`;
+        storeLocal();
     }
 
     removeBtnDiv.addEventListener("mouseover", function( event ) {
         event.target.style.filter= `grayscale(50%)`;
+        storeLocal();
     })
 
     removeBtnDiv.addEventListener("mouseout", function( event ) {
         event.target.style.filter = `grayscale(0%)`;
+        storeLocal();
     })
 
     readBtnDiv.addEventListener("mouseover", function( event ) {
         event.target.style.filter= `grayscale(50%)`;
+        storeLocal();
     })
 
     readBtnDiv.addEventListener("mouseout", function( event ) {
         event.target.style.filter = `grayscale(0%)`;
+        storeLocal();
     })
     
     bookDiv.appendChild(titleDiv);
@@ -87,11 +93,13 @@ function displayBook(book) {
     removeBtnDiv.addEventListener(`click`, () => {
         removeFromLibraryArray(book);
         updateLibrary();
+        storeLocal();
     })
 
     readBtnDiv.addEventListener(`click`, () => {
         book.read = !book.read;
         updateLibrary();
+        storeLocal();
     })
 }
 
@@ -142,17 +150,18 @@ function closeForm() {
     newBookButton.style.opacity = "1";
 }
 
-//testing local storage
+
 function storeLocal() {
-    localStorage.setItem("myLibrary", JSON.stringify(myLibrary)); //sets myLibrary to the object as a k:v pair
+    console.log("stored");
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary)); 
 }
   
 function restoreLocal() {
-    myLibrary = JSON.parse(localStorage.getItem("myLibrary")); //converts JSON script into an object
-    if (myLibrary === null) { //if myLibrary has no content, restore an empty array
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary")); 
+    if (myLibrary === null) { 
         myLibrary = [];
-    updateLibrary();
     }
+    updateLibrary();
 }
 
 restoreLocal();
